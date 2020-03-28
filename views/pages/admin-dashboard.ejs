@@ -1,0 +1,190 @@
+<% include ../partials/header.ejs %>
+
+<h1 class="text-center">Admin Dashboard</h1>
+<br>
+<p class="text-center">
+    <a data-toggle="modal" href='#blockdetails'>Get Current Block Details</a>
+</p>
+
+<h2 class="text-center">
+    Users
+</h2>
+
+<br>
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">
+                        Name
+                    </th>
+                    <th class="text-center">
+                        Email
+                    </th>
+                    <th class="text-center">
+                        Last Login
+                    </th>
+                    <th class="text-center">
+                        Wills
+                    </th>
+                    <th class="text-center">
+                        Suspend Status
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (user of users) { %>
+                <tr class="text-center">
+                    <td><%= user.name %></td>
+                    <td><%= user.local.email %></td>
+                    <td><%= new Date(user.lastLogin).toLocaleDateString(undefined, { year: 'numeric', month: 'numeric', day: '2-digit' }) %></td>
+                    <td><a href="/admin/wills/<%= user._id %>"> <i class="fa fa-eye"></i> View</a></td>
+                    <td><a href="/admin/ban-toggle/<%= user._id %>"><i class="fa fa-ban"></i>
+                            <%= user.isBanned ? 'Not Suspend' : 'Suspend' %></a></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+
+
+<h2 class="text-center">
+    Transfers
+</h2>
+
+<br>
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">
+                        From
+                    </th>
+                    <th class="text-center">
+                        To
+                    </th>
+                    <th class="text-center">
+                        View Will
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (transfer of transfers) { %>
+                <tr class="text-center">
+                    <td><%= transfer.fromEmail %></td>
+                    <td><%= transfer.toEmail %></td>
+                    <td><a href="/users/will-ipfs/<%= transfer.willHash %>" target="_blank"> <i class="fa fa-eye"></i> View</a></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+<div class="modal fade" id="addnew">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Add New Will</h4>
+            </div>
+            <form action="#" method="POST" role="form" enctype="multipart/form-data">
+
+                <div class="modal-body">
+                    <p class="text-center">
+                        In order to save your will please create a new pdf document and upload it here.
+                        <br> Please use this sample <a class="btn btn-default"
+                            href="https://www.riogrande.coop/legal/Sample%20of%20simple%20will.pdf">PDF</a>
+                    </p>
+
+                    <div class="form-group">
+                        <label for="title">Will Title</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Will Title"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="will">Will Document</label>
+                        <input type="file" class="form-control" id="will" name="will" required>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="blockdetails">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Block Details - Block No. <%= blockDetails.number %></h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="difficulty">Difficulty</label>
+                    <input type="text" class="form-control" id="difficulty" value="<%= blockDetails.difficulty %>"
+                        placeholder="" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="gasLimit">Gas Limit</label>
+                    <input type="text" class="form-control" id="gasLimit" value="<%= blockDetails.gasLimit %>"
+                        placeholder="" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label for="gasUsed">Gas Used</label>
+                    <input type="text" class="form-control" id="gasUsed" value="<%= blockDetails.gasUsed %>"
+                        placeholder="" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="hash">Block Hash</label>
+                    <input type="text" class="form-control" id="hash" value="<%= blockDetails.hash %>" placeholder=""
+                        disabled>
+                </div>
+                <div class="form-group">
+                    <label for="miner">Miner</label>
+                    <input type="text" class="form-control" id="miner" value="<%= blockDetails.miner %>" placeholder=""
+                        disabled>
+                </div>
+                <div class="form-group">
+                    <label for="nonce">Nonce Value</label>
+                    <input type="text" class="form-control" id="nonce" value="<%= blockDetails.nonce %>" placeholder=""
+                        disabled>
+                </div>
+                <div class="form-group">
+                    <label for="timestamp">Timestamp</label>
+                    <input type="text" class="form-control" id="timestamp" value="<%= blockDetails.timestamp %>"
+                        placeholder="" disabled>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<% include ../partials/footer.ejs %>

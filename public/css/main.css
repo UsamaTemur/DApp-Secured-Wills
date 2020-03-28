@@ -1,0 +1,13 @@
+body, html {
+    background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+    min-height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+    background: transparent;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+}

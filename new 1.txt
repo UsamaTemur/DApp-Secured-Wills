@@ -1,0 +1,9 @@
+Open CMD
+
+Write in CMD:
+mongod
+
+
+Open VS code
+In VS ccode terminal write: 
+npm start

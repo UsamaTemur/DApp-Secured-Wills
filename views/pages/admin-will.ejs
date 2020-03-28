@@ -1,0 +1,79 @@
+<% include ../partials/header.ejs %>
+
+<h1 class="text-center">User Wills</h1>
+<h3 class="text-center"> <%= user.local.email %> </h3>
+
+<br>
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">
+                        Will
+                    </th>
+                    <th class="text-center">
+                        Created At
+                    </th>
+                    <th class="text-center">
+                        Download
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (will of wills) { %>
+                <tr class="text-center">
+                    <td><%= will[2] %></td>
+                    <td><%= will[1] %></td>
+                    <td><a href="/users/will-ipfs/<%= will[0] %>" target="_blank"><i class="fa fa-download"></i>
+                            Download</a></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="addnew">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Add New Will</h4>
+            </div>
+            <form action="#" method="POST" role="form" enctype="multipart/form-data">
+
+                <div class="modal-body">
+                    <p class="text-center">
+                        In order to save your will please create a new pdf document and upload it here.
+                        <br> Please use this sample <a class="btn btn-default"
+                            href="https://www.riogrande.coop/legal/Sample%20of%20simple%20will.pdf">PDF</a>
+                    </p>
+
+                    <div class="form-group">
+                        <label for="title">Will Title</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Will Title"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="will">Will Document</label>
+                        <input type="file" class="form-control" id="will" name="will" required>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer.ejs %>

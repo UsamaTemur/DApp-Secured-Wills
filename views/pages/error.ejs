@@ -1,0 +1,14 @@
+<% include ../partials/header.ejs %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+                <h1>Error</h1>
+                <h2><%= message %></h2>
+                <h3><%= error.status %></h3>
+                <pre><%= error.stack %></pre>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer.ejs %>
